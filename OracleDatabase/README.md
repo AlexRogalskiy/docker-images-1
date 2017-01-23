@@ -10,7 +10,7 @@ The `buildDockerImage.sh` script is just a utility shell script that performs MD
 ### Building Oracle Database Docker Install Images
 **IMPORTANT:** You will have to provide the installation binaries of Oracle Database and put them into the `dockerfiles/<version>` folder. You only need to provide the binaries for the edition you are going to install. The binaries can be downloaded from the [Oracle Technology Network](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html). You also have to make sure to have internet connectivity for yum. Note that you must not uncompress the binaries. The script will handle that for you and fail if you uncompress them manually!
 
-Before you build the image make sure that you have provided the installation binaries and put them into the right folder. Once you have chosen which edition and version you want to build an image of, go into the **dockerfiles** folder and run the **buildDockerImage.sh** script as root or with `sudo` privileges:
+Before you build the image make sure that you have provided the installation binaries and put them into the right folder. The correct place to place the binaries is in the corresponding version directory under **dockerfiles**. Once you have chosen which edition and version you want to build an image of, go into the **dockerfiles** folder and run the **buildDockerImage.sh** script as root or with `sudo` privileges:
 
 	[oracle@localhost dockerfiles]$ ./buildDockerImage.sh -h
 
@@ -87,7 +87,7 @@ The password for those accounts can be changed via the **docker exec** command. 
 To run your Oracle Database Express Edition Docker image use the **docker run** command as follows:
 
 	docker run --name <container name> \
-	--shm-size=1g \
+	--shm-size 1g \
 	-p 1521:1521 -p 8080:8080 \
 	-v [<host mount point>:]/u01/app/oracle/oradata \
 	oracle/database:11.2.0.2-xe
